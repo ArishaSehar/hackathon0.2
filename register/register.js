@@ -1,8 +1,8 @@
-import { getAuth, createUserWithEmailAndPassword, doc, setDoc, db, getDoc, updateDoc } from "./firebase.js";
+import { getAuth, createUserWithEmailAndPassword, doc, setDoc, db, getDoc, updateDoc } from "../firebase.js";
 
 let btn = document.getElementById("register")
 let email = document.getElementById("accountEmail")
-let password = document.getElementById("accountPassword")
+let password = document.getElementById("account-Password")
 let name = document.getElementById("userName")
 let Address = document.getElementById("Address")
 let phoneNum = document.getElementById("phoneNum")

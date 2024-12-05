@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>posts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Posts</h2>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+          <!-- Search Bar -->
+          <div class="search-bar mb-4">
+            <div class="form-floating mb-2">
+                <select class="form-select" id="searchCategory" aria-label="Search by category">
+                    <option value="" selected disabled>Trending Topics</option>
+                    <option value="Tech">HTML</option>
+                    <option value="Education">Css</option>
+                    <option value="Entertainment">Bootstrap</option>
+
+                </select>
+                <label for="searchCategory">Select</label>
+            </div>
+            <button class="btn btn-success" id="searchBtn">Search</button>
+        </div>
+
+        <h1>Feed</h1>
+        <div id="trendingPost"></div>
+
+      
+
+        <!-- Dashboard Content -->
+        <section class="dashboard-content">
+            <div>
+                <p id="allPost"></p>
+            </div>
+        </section>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./posts.js"></script>
+    <script type="module" src="../firebase.js"></script>
+
+</body>
+
+</html>
