@@ -1,91 +1,177 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-.main{
-    /* border: 1px solid red; */
-    border: none;
-    /* width: 1000px; */
+.main {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     background-color: #EFEFEF;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
-.blue{
+
+.blue {
     background-color: #1C5CFF;
-    width: 30.38px;
-    height: 30.38px;
-    top: 62.41px;
-    left: 108.4px;
-    border-radius: 15.19px;
-
+    width: 50px;
+    height: 50px;
+    position: relative;
+    border-radius: 50%;
 }
-.coranu{
-    width: 1322px;
-    height: 1420px;
-    top: -2191px;
-    left: 3367px;
+
+.coranu {
+    width: 90%; /* Allow layout to scale */
+    max-width: 1200px;
+    height: auto;
     background-color: #EFEFEF;
-    /* border: 1px solid red; */
-
-
+    margin: 20px auto; /* Center and add spacing */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.tis{
-    /* border: 1px solid red; */
-    padding-top: 50px;
-    padding-left: 100px;
-width: 100%;
-height: 90px;
 
+.tis {
+    padding: 20px;
+    width: 100%;
+    text-align: center;
 }
-.tis-para{
-    padding-top: 50px;
-    padding-left: 40px;
+
+.tis-para {
     font-weight: 600;
+    font-size: 1.2rem;
 }
-#trending{
-    padding-top: 50px;
+
+#trending {
+    margin-top: 20px;
     color: #1C5CFF;
     display: flex;
     justify-content: center;
+    font-size: 1.5rem;
 }
-.topics{
-    padding-top: 30px;
+
+.topics {
+    margin-top: 20px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Add spacing between items */
     justify-content: center;
 }
 
 .topics ul {
     list-style-type: none;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
+    gap: 10px; /* Add spacing for wrapping */
+    justify-content: center;
 }
 
 .topics li {
     background-color: #e1e9ee;
     color: #0073b1;
     border-radius: 15px;
-    padding: 8px 12px;
-    margin: 5px;
-    font-size: 14px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    flex: 1 1 calc(33% - 20px); /* Adjust for flexible grid */
+    text-align: center;
+    max-width: 200px;
+    box-sizing: border-box;
 }
 
-#get{
-    padding-top: 20px;
+#get {
+    margin-top: 20px;
     color: #1C5CFF;
     display: flex;
     justify-content: center;
+    font-size: 1rem;
 }
-
 
 .navbar-content {
     width: 100%;
-    text-align: center;  /* Center the content horizontally */
-  }
-  
-  .btn {
-    display: inline-block; /* Ensure the button is treated as an inline element */
-  }
-  
+    text-align: center;
+    padding: 10px 0;
+}
 
-  
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1C5CFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .coranu {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .tis-para {
+        font-size: 1rem;
+    }
+
+    #trending {
+        font-size: 1.2rem;
+    }
+
+    .topics li {
+        flex: 1 1 calc(50% - 10px); /* Adjust to 2 per row */
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .blue {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tis-para {
+        font-size: 0.9rem;
+    }
+
+    #trending {
+        font-size: 1rem;
+    }
+
+    .topics li {
+        flex: 1 1 calc(100% - 20px); /* Single column on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .blue {
+        width: 30px;
+        height: 30px;
+    }
+
+    .tis-para {
+        font-size: 0.8rem;
+    }
+
+    #trending {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .topics li {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+}
+
   
 
 

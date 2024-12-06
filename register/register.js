@@ -1,151 +1,127 @@
-import { getAuth, createUserWithEmailAndPassword, doc, setDoc, db, getDoc, updateDoc } from "../firebase.js";
+// import { getAuth, createUserWithEmailAndPassword, doc, setDoc, db } from "../firebase.js";
 
-let btn = document.getElementById("register")
-let email = document.getElementById("accountEmail")
-let password = document.getElementById("account-Password")
-let name = document.getElementById("userName")
-let Address = document.getElementById("Address")
-let phoneNum = document.getElementById("phoneNum")
+// const registerButton = document.getElementById("register");
+// const email = document.getElementById("accountEmail");
+// const password = document.getElementById("account-Password");
+// const name = document.getElementById("userName");
+// const address = document.getElementById("Address");
+// const phoneNum = document.getElementById("phoneNum");
+
+// const auth = getAuth();
+
+// registerButton.addEventListener("click", async (e) => {
+//     e.preventDefault();
+
+//     if (email.value.trim() && password.value.trim() && name.value.trim() && address.value.trim() && phoneNum.value.trim()) {
+//         try {
+//             const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+//             const user = userCredential.user;
+
+//             await setDoc(doc(db, "usersWithId", user.uid), {
+//                 name: name.value,
+//                 address: address.value,
+//                 phoneNo: phoneNum.value,
+//                 email: email.value,
+//             });
+
+//             Swal.fire({
+//                 icon: "success",
+//                 title: "Signed up successfully!",
+//                 timer: 1000,
+//                 showConfirmButton: false
+//             });
+
+//             setTimeout(() => {
+//                 location.href = "login.html";
+//             }, 1000);
+
+//         } catch (error) {
+//             console.error(error);
+//             let errorMessage = "An error occurred. Please try again.";
+//             if (error.code === "auth/weak-password") {
+//                 errorMessage = "Password should be at least 6 characters long.";
+//             } else if (error.code === "auth/email-already-in-use") {
+//                 errorMessage = "Email is already registered. Please sign in.";
+//             }
+//             Swal.fire({
+//                 icon: "error",
+//                 title: "Sign-up Error",
+//                 text: errorMessage,
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             icon: "error",
+//             title: "Missing Fields",
+//             text: "Please fill out all fields."
+//         });
+//     }
+// });
+
+import { getAuth, createUserWithEmailAndPassword, doc, setDoc, db } from "../firebase.js";
+
+const registerButton = document.getElementById("register");
+const email = document.getElementById("accountEmail");
+const password = document.getElementById("account-Password");
+const name = document.getElementById("userName");
+const address = document.getElementById("Address");
+const phoneNum = document.getElementById("phoneNum");
 
 const auth = getAuth();
-btn.addEventListener("click", async () => {
-    if (email.value.trim() && password.value.trim()) {
-        createUserWithEmailAndPassword(auth, email.value, password.value)
-            .then(async (userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
 
-                try {
-                    const user = auth.currentUser;
-                    if (user) {
-                        /////get uid
-                        const uid = user.uid;
-                        console.log(uid);
+registerButton.addEventListener("click", async (e) => {
+    e.preventDefault(); // Prevents the form from submitting the default way.
 
-                        //////add user in database with id
-                        await setDoc(doc(db, "usersWithId", uid), {
-                            name: name.value,
-                            address: Address.value,
-                            phoneNo: phoneNum.value,
-                            email: email.value,
-                        });
-                        console.log("Document written with ID: ", uid);
+    // Ensure all fields are filled in
+    if (email.value.trim() && password.value.trim() && name.value.trim() && address.value.trim() && phoneNum.value.trim()) {
+        try {
+            // Create a new user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+            const user = userCredential.user;
 
-
-
-
-                        // //////////////////update data with time
-                        // const updateTimestamp = await updateDoc(docRef, {
-                        //     timestamp: serverTimestamp()
-                        // });
-
-                        //////////read user data
-                        //    const docRef = doc(db, "usersWithId", uid);
-                        //    const docSnap = await getDoc(docRef);
-                        //         if (docSnap.exists()) {
-                        //             console.log("Document data:", docSnap.data());
-                        //         } else {
-                        //             console.log("No such document!");
-                        //         }                           
-
-
-                    } else {
-                        console.log("no user login");
-                    }
-
-
-
-
-                    //////////////////set doc with static id
-
-                    // await setDoc(doc(db, "userId", "098647"), {
-                    //     name: name.value,
-                    //     address: Address.value,
-                    //     phoneNo:phoneNum.value
-                    //   });
-                    //   console.log("Document written with ID: ");
-
-
-
-                    ///////////////////   get doc
-
-                    // const docRef = await addDoc(collection(db, "users"), {
-                    //   name: name.value,
-                    //   address: Address.value,
-                    //   phoneNo:phoneNum.value
-                    // });
-                } catch (e) {
-                    console.error("Error adding document: ", e);
-                }
-
-
-
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
-                Toast.fire({
-                    icon: "success",
-                    title: "Sign up successfully"
-                });
-
-
-                setTimeout(async () => {
-                    location.href = "login.html"
-                }, 1000)
-
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                switch (errorMessage) {
-                    case "Firebase: Password should be at least 6 characters (auth/weak-password).":
-                        Swal.fire({
-                            icon: "error",
-                            title: "Weak Password",
-                            text: "Password should be at least 8 characters long."
-                        });
-                        break;
-
-                    case "Firebase: Error (auth/invalid-email).":
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid Email",
-                            text: "Please enter a valid email address."
-                        });
-                        break;
-
-                    case "Firebase: Error (auth/email-already-in-use).":
-                        Swal.fire({
-                            icon: "error",
-                            title: "Email already Exists",
-                            text: "If you are already registered, please SignIn"
-                        });
-                        break;
-                }
-                console.log(errorMessage);
-
-
+            // Save additional user data (name, address, phone, etc.) to Firestore
+            await setDoc(doc(db, "usersWithId", user.uid), {
+                name: name.value,
+                address: address.value,
+                phoneNo: phoneNum.value,
+                email: email.value,
             });
 
+            // Display success message
+            Swal.fire({
+                icon: "success",
+                title: "Signed up successfully!",
+                timer: 1000,
+                showConfirmButton: false
+            });
+
+            // Redirect to login page after successful sign-up
+            setTimeout(() => {
+                location.href = "../login/login.html"; // Ensure the path is correct
+            }, 1000);
+
+        } catch (error) {
+            console.error(error);
+            let errorMessage = "An error occurred. Please try again.";
+            // Custom error messages based on error codes
+            if (error.code === "auth/weak-password") {
+                errorMessage = "Password should be at least 6 characters long.";
+            } else if (error.code === "auth/email-already-in-use") {
+                errorMessage = "Email is already registered. Please sign in.";
+            }
+            // Display error message
+            Swal.fire({
+                icon: "error",
+                title: "Sign-up Error",
+                text: errorMessage,
+            });
+        }
     } else {
+        // Display message if any fields are missing
         Swal.fire({
             icon: "error",
-            title: "Fill out the fields",
-
+            title: "Missing Fields",
+            text: "Please fill out all fields."
         });
-
     }
-
-
-
-})
-
-
+});
